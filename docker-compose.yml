@@ -5,7 +5,7 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
-    image: llama3chat-backend
+    image: llama3chat-backend:latest
     networks:
       - mynetwork
     container_name: llama3chat-backend
