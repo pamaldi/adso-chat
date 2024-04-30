@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  llama3chat-backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: llama3chat-backend
+    networks:
+      - mynetwork
+    container_name: llama3chat-backend
+    ports:
+      - "8080:8080"
+    stdin_open: true # Corresponds to -i in `docker run`
+    tty: true        # Usually needed alongside stdin_open to keep the container running
+    restart: unless-stopped  # Ensures the container restarts if it stops for any reason other than being manually stopped
+
+
+  ollama-llama3:
+    build:
+      context: ollama-llama3
+      dockerfile: Dockerfile
+    image: ollama-llama3
+    networks:
+      - mynetwork
+    container_name: ollama-llama3
+    ports:
+      - "11434:11434"
+    volumes:
+      - type: bind
+        source: ./data
+        target: /data
+    restart: unless-stopped
+
+volumes:
+    ollama_data:
+networks:
+  mynetwork:
+    driver: bridge
+

@@ -1,0 +1,5 @@
+mvn clean install
+
+docker build -f Dockerfile -t llama3chat-backend .
+
+docker run -i --rm -p 8080:8080 llama3chat-backend
