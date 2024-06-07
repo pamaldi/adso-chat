@@ -5,9 +5,8 @@ import cloud.isaura.llama3.model.ChatLanguageModel;
 import cloud.isaura.llama3.model.Response;
 import cloud.isaura.llama3.model.TokenUsage;
 import cloud.isaura.llama3.utils.ValidationUtils;
-import jakarta.enterprise.context.ApplicationScoped;
+import io.smallrye.mutiny.Multi;
 import org.jboss.logging.Logger;
-
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -65,4 +64,12 @@ public class OllamaLanguageModel implements ChatLanguageModel {
         LOGGER.debug("chat response "+completionResponse.response());
         return completionResponse.response();
     }
+
+    @Override
+    public Multi<String> generateStreaming(String prompt) {
+        LOGGER.debug("prompt "+prompt);
+        CompletionRequest completionRequest = new CompletionRequest(model.getName(),"",prompt,null,null,true);
+        return client.getDataStreamString(completionRequest);
+    }
+
 }
