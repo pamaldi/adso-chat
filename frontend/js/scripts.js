@@ -42,6 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
     verifyMessage()
   });
 
+  $('.message_input').on('keydown', function(event) {
+    if (event.key === 'Enter') {
+      verifyMessage()
+    }
+  });
+
   function displayMessage(sender, message) {
     const messageElement = document.createElement('div');
     const messageId = `message-${messageIdCounter++}`;

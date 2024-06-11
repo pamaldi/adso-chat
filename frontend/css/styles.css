@@ -120,8 +120,8 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 70%;
-  height: 70vh; /* 70% of the viewport height */
+  width: 80%;
+  height: 80vh; /* 70% of the viewport height */
   border-radius: 10px;
   background-color: #fff;
   left: 50%;
