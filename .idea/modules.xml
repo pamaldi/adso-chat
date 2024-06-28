@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/adso-chat.iml" filepath="$PROJECT_DIR$/adso-chat.iml" />
       <module fileurl="file://$PROJECT_DIR$/frontend.iml" filepath="$PROJECT_DIR$/frontend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/llama3-chat.iml" filepath="$PROJECT_DIR$/llama3-chat.iml" />
     </modules>
   </component>
 </project>

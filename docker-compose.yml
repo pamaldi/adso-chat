@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  llama3chat-backend:
+  adso-chat-backend:
     build:
       context: backend
       dockerfile: Dockerfile
-    image: llama3chat-backend:latest
+    image: adso-chat-backend:latest
     networks:
       - mynetwork
-    container_name: llama3chat-backend
+    container_name: adso-chat-backend
     ports:
       - "8080:8080"
     stdin_open: true # Corresponds to -i in `docker run`
@@ -16,14 +16,14 @@ services:
     restart: unless-stopped  # Ensures the container restarts if it stops for any reason other than being manually stopped
 
 
-  ollama-llama3:
+  adso-chat-ollama:
     build:
-      context: ollama-llama3
+      context: ollama
       dockerfile: Dockerfile
-    image: ollama-llama3
+    image: adso-chat-ollama
     networks:
       - mynetwork
-    container_name: ollama-llama3
+    container_name: adso-chat-ollama
     ports:
       - "11434:11434"
     volumes:
@@ -31,6 +31,19 @@ services:
         source: ./data
         target: /data
     restart: unless-stopped
+
+
+  adso-ui:
+   build:
+     context: frontend
+     dockerfile: Dockerfile
+   image: adso-ui
+   networks:
+    - mynetwork
+   container_name: adso-ui
+   ports:
+    - "80:80"
+   restart: unless-stopped
 
 volumes:
     ollama_data:
