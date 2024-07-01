@@ -114,7 +114,7 @@ public class OllamaClient {
                             while ((line = reader.readLine()) != null) {
                                 CompletionResponse completionResponse = jsonb.fromJson(line, CompletionResponse.class);
                                 LOGGER.debug("completion response "+completionResponse);
-                                emitter.emit(completionResponse.done()?"####":completionResponse.response());
+                                emitter.emit(completionResponse.response());
                             }
                             emitter.complete();
                         } catch (IOException e) {
