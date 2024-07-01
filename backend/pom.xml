@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cloud.isaura.llama3.chat</groupId>
     <artifactId>backend</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 
     <properties>
         <compiler-plugin.version>3.12.1</compiler-plugin.version>
