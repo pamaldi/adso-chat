@@ -38,7 +38,7 @@ public class WebSocketEndpoint
     @PostConstruct
     public void init() {
         LOGGER.debug("start ws");
-        this.ollamaLanguageModel = new OllamaLanguageModel(OllamaModel.LLAMA3, null, "json", configuration.getOllamaEndpoint(), Duration.ofSeconds(60));
+        this.ollamaLanguageModel = new OllamaLanguageModel(OllamaModel.LLAMA3, null, "json", configuration.getOllamaEndpoint(), Duration.ofSeconds(60000));
     }
 
     @OnOpen
