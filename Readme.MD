@@ -51,6 +51,17 @@ The Ollama service uses a bind mount to persist data:
 
 Local ./data directory is mounted to /data in the Ollama container.
 
+6. Keycloak
+   http://localhost:8081/admin/master/console/
+   http://localhost:8081/realms/adso/protocol/openid-connect/auth?client_id=adso-user&redirect_uri=http://localhost:80&response_type=code&scope=openid
+
+
+# Other
+Build a single service
+```bash
+docker-compose  up --build -d adso-ui
+```
+
 
 ## About Ollama
 

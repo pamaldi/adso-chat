@@ -1,3 +1,25 @@
+const keycloak = new Keycloak({
+  url: 'http://localhost:8081',
+  realm: 'adso',
+  clientId: 'adso-user'
+});
+
+keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
+  if (authenticated) {
+    console.log('Authenticated');
+    document.getElementById('logout').onclick = () => {
+      keycloak.logout();
+    };
+  } else {
+    console.log('Not authenticated');
+  }
+}).catch(error => {
+  console.error('Failed to initialize', error);
+});
+
+
+
+
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
