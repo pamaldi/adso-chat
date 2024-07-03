@@ -89,3 +89,23 @@ chatInput.addEventListener("keydown", (e) => {
 });
 
 sendButton.addEventListener("click", handleOutgoingChat);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+  const panels = document.querySelectorAll('.sidebar-panel');
+
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const panelId = item.getAttribute('data-panel');
+      panels.forEach(panel => {
+        if (panel.id === panelId) {
+          panel.classList.toggle('show-panel');
+        } else {
+          panel.classList.remove('show-panel');
+        }
+      });
+    });
+  });
+});
+
