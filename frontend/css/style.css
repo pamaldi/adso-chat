@@ -135,6 +135,9 @@ span.material-symbols-rounded {
 .typing-animation .typing-dot:first-child {
   margin-left: 0;
 }
+.stop-animation .typing-dot {
+  animation: none;
+}
 @keyframes animateDots {
   0%,44% {
     transform: translateY(0px);

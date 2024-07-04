@@ -25,6 +25,8 @@ const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
 const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
+let stopProcessing = false;
+let reset = true;
 
 let userText = null;
 let ws = new WebSocket("ws://127.0.0.1:8080/chatbot");
@@ -41,9 +43,19 @@ const createChatElement = (content, className) => {
 }
 
 ws.onmessage = function (event) {
+  const typingAnimationDiv = document.querySelector('.typing-animation');
+  if (typingAnimationDiv) {
+    typingAnimationDiv.remove();
+  }
+  if (stopProcessing)
+  {
+      reset = true;
+      return
+  }
   const textNode = document.createTextNode(event.data);
   pElement.appendChild(textNode);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
+
 };
 
 
@@ -64,27 +76,35 @@ const handleOutgoingChat = () => {
   chatInput.style.height = `${initialInputHeight}px`;
 
   const html = `<div class="chat-content">
-                    <div class="chat-details">
-                        <p>${userText}</p>
-                    </div>
-                </div>`;
+                            <div class="chat-details">
+                                <p>${userText}</p>
+                            </div>
+                        </div>`;
 
   const outgoingChatDiv = createChatElement(html, "outgoing");
   chatContainer.querySelector(".default-text")?.remove();
   chatContainer.appendChild(outgoingChatDiv);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  stopProcessing=false;
+
   ws.send(userText);
   const htmlResponse = `<div class="chat-content">
-                    <div class="chat-details">
-                    </div>
-                    <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
-                </div>`;
+                                  <div class="chat-details">
+                                      <div class="typing-animation">
+                                          <div class="typing-dot" style="--delay: 0.2s"></div>
+                                          <div class="typing-dot" style="--delay: 0.3s"></div>
+                                          <div class="typing-dot" style="--delay: 0.4s"></div>
+                                      </div>
+                                  </div>
+                                  <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
+                                </div>`;
   incomingChatDiv = createChatElement(htmlResponse, "incoming");
   chatContainer.appendChild(incomingChatDiv);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   pElement = document.createElement("p");
   pElement.textContent = event.data;
   incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
+  // 5000 milliseconds = 5 seconds
 }
 
 
@@ -129,5 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+});
+
+deleteButton.addEventListener("click", () => {
+  stopProcessing=true;
 });
 
