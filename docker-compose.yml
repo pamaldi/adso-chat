@@ -65,7 +65,6 @@ services:
       KC_HEALTH_ENABLED: true
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    command: start-dev --http-port=8081
     depends_on:
       keycloakdb:
         condition: service_healthy
@@ -73,8 +72,16 @@ services:
         - keycloak-network
     volumes:
         - keycloak_data:/opt/keycloak/data
+        - ./adso-realm.json:/tmp/adso-realm.json  # Mount the export file
     ports:
       - 8081:8081
+    command:
+      - start-dev
+      - --http-port=8081
+      - -Dkeycloak.migration.action=import
+      - -Dkeycloak.migration.provider=singleFile
+      - -Dkeycloak.migration.file=/tmp/adso-realm.json
+      - -Dkeycloak.migration.strategy=OVERWRITE_EXISTING
 
   keycloakdb:
     image: postgres:13
