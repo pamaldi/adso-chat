@@ -24,9 +24,7 @@ const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
 const themeButton = document.querySelector("#theme-btn");
-const deleteButton = document.querySelector("#delete-btn");
-let stopProcessing = false;
-let reset = true;
+
 
 let userText = null;
 let ws = new WebSocket("ws://127.0.0.1:8080/chatbot");
@@ -46,11 +44,6 @@ ws.onmessage = function (event) {
   const typingAnimationDiv = document.querySelector('.typing-animation');
   if (typingAnimationDiv) {
     typingAnimationDiv.remove();
-  }
-  if (stopProcessing)
-  {
-      reset = true;
-      return
   }
   const textNode = document.createTextNode(event.data);
   pElement.appendChild(textNode);
@@ -151,7 +144,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-deleteButton.addEventListener("click", () => {
-  stopProcessing=true;
-});
+
 
